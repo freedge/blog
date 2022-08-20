@@ -43,3 +43,8 @@ Crashing on memory corruptions, on cmdline:
 ```
 slub_debug=FPZU panic_on_taint=0x20
 ```
+
+Tracing SELinux AVC:
+```
+bpftrace -e 'kfunc:avc_audit_post_callback { printf("get PID %d %s %s \n", pid, kstack(), ustack()); }'
+```
