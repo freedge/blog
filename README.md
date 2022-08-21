@@ -3,6 +3,8 @@ Frigo's blog
 
 # 2022
 
+[SELinux and containers](/udica.md)
+
 [SELinux cheat sheet](/selinux.md)
 
 [Looking at the kernel side of things](/kerneltrace.md)
