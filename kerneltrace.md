@@ -48,3 +48,18 @@ Tracing SELinux AVC:
 ```
 bpftrace -e 'kfunc:avc_audit_post_callback { printf("get PID %d %s %s \n", pid, kstack(), ustack()); }'
 ```
+
+Tracing cgroups device issues:
+```
+bpftrace -e '
+kprobe:devcgroup_check_permission {
+  if (strncmp(comm, "dd", 2) == 0) {
+    printf("[%d-%s] %d %d:%d %d\n", pid, comm, arg0, arg1, arg2, arg3);
+  }
+}
+kretprobe:devcgroup_check_permission {
+  if (retval != 0) {
+    printf("[%d-%s] ret=%d\n", pid, comm, retval);
+  }
+}'
+```
