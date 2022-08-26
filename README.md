@@ -1,6 +1,8 @@
 Frigo's blog
 ------------
 
+(more like, notes to myself)
+
 # 2022
 
 [SELinux and containers](/udica.md)
