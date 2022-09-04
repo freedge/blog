@@ -1,0 +1,36 @@
+diff --git a/src/sudo_noexec.c b/src/sudo_noexec.c
+index 71a36d6fe..b30265d2c 100644
+--- a/src/sudo_noexec.c
++++ b/src/sudo_noexec.c
+@@ -30,6 +30,8 @@
+ # include <asm/unistd.h>
+ # include <linux/filter.h>
+ # include <linux/seccomp.h>
++# include <linux/capability.h>
++# include <sys/capability.h>
+ #endif
+ 
+ #include <errno.h>
+@@ -229,6 +231,9 @@ noexec_ctor(void)
+        /* Load syscall number into the accumulator */
+        BPF_STMT(BPF_LD | BPF_ABS, offsetof(struct seccomp_data, nr)),
+        /* Jump to deny for execve/execveat */
++       BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_fchmodat, 5, 0),
++       BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_fchmod, 4, 0),
++       BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_chmod, 3, 0),
+        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_execve, 2, 0),
+        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_execveat, 1, 0),
+        /* Allow non-matching syscalls */
+@@ -247,5 +252,13 @@ noexec_ctor(void)
+      */
+     if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) == 0)
+        (void)prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, &exec_fprog);
++
++    cap_t caps;
++    const cap_value_t cap_list[8] = {CAP_FOWNER, CAP_SETFCAP, CAP_DAC_OVERRIDE, CAP_DAC_READ_SEARCH, CAP_SETUID, CAP_CHOWN, CAP_SYS_ADMIN, CAP_FSETID};
++
++    caps = cap_get_proc();
++    cap_set_flag(caps, CAP_EFFECTIVE, 8, cap_list, CAP_CLEAR);
++    cap_set_proc(caps);
++    cap_free(caps);
+ }

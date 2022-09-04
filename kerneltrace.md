@@ -63,3 +63,8 @@ kretprobe:devcgroup_check_permission {
   }
 }'
 ```
+
+Tracing execve giving EACCES and a core
+```
+bpftrace -e 'kprobe:force_fatal_sig {printf("%d-%s %s\n", pid,  comm, kstack());} '
+```

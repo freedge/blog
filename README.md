@@ -5,6 +5,8 @@ Frigo's blog
 
 # 2022
 
+[Hardening sudo](/sudo.md)
+
 [SELinux and containers](/udica.md)
 
 [SELinux cheat sheet](/selinux.md)
