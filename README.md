@@ -5,6 +5,8 @@ Frigo's blog
 
 # 2022
 
+[OVN and virtual ports](/ovnvirtual.md)
+
 [Hardening sudo](/sudo.md)
 
 [SELinux and containers](/udica.md)
