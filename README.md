@@ -21,4 +21,4 @@ Frigo's blog
 
 
 ----
-https://twitter.com/frigo60723339
+https://toot.community/@frigo
