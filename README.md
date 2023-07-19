@@ -3,6 +3,10 @@ Frigo's blog
 
 (more like, notes to myself)
 
+# 2023
+
+[OVN-Kubernetes, IPv6 and wildcard ACLs](/ovnkipv6.md)
+
 # 2022
 
 [OVN and virtual ports](/ovnvirtual.md)
@@ -21,4 +25,4 @@ Frigo's blog
 
 
 ----
-https://toot.community/@frigo
+[@frigo@toot.community](https://toot.community/@frigo) [@frigo_6](https://twitter.com/frigo_6)
