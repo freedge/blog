@@ -1,0 +1,3 @@
+ENV{INTERFACE}=="eth1", ENV{NM_UNMANAGED}="1"
+
+
